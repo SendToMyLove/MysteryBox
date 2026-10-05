@@ -1,17 +1,41 @@
 let selectedBox=null;
 let selectedItem=null;
 let selectedX=-10, selectedY=-25;
-let dragging=false,lastX=0,lastY=0;
+let dragging=false,didDrag=false,lastX=0,lastY=0;
 let busy=false,audioStarted=false,audioIndex=0;
 
 const $=id=>document.getElementById(id);
 const join=(a,b)=>a.endsWith("/")?a+b:a+"/"+b;
+
+function normalizeFace(faceData){
+  if(typeof faceData === "string") return {type:"image",src:faceData};
+  return faceData || {type:"image",src:""};
+}
 
 function face(cls,url){
   const e=document.createElement("div");
   e.className="face "+cls;
   e.style.backgroundImage=`url("${url}")`;
   return e;
+}
+
+function mediaFace(cls,faceData,folder){
+  const data=normalizeFace(faceData);
+  const src=join(folder,data.src||"");
+  if((data.type||"image").toLowerCase()==="video"){
+    const wrap=document.createElement("div");
+    wrap.className="face "+cls+" video-face";
+    const v=document.createElement("video");
+    v.src=src;
+    v.autoplay=data.autoplay!==false;
+    v.loop=data.loop!==false;
+    v.muted=data.muted!==false;
+    v.playsInline=true;
+    v.preload="auto";
+    wrap.appendChild(v);
+    return wrap;
+  }
+  return face(cls,src);
 }
 
 function addParticles(){
@@ -31,12 +55,12 @@ function buildCube(container,boxData,kind){
   const f=boxData.folder;
   const cls=kind==="selected" ? "selected-face" : "opening-face";
   container.append(
-    face(cls+" front",join(f,boxData.box.front)),
-    face(cls+" back",join(f,boxData.box.back)),
-    face(cls+" right",join(f,boxData.box.right)),
-    face(cls+" left",join(f,boxData.box.left)),
-    face(cls+" top",join(f,boxData.box.top)),
-    face(cls+" bottom",join(f,boxData.box.bottom))
+    mediaFace(cls+" front",boxData.box.front,f),
+    mediaFace(cls+" back",boxData.box.back,f),
+    mediaFace(cls+" right",boxData.box.right,f),
+    mediaFace(cls+" left",boxData.box.left,f),
+    mediaFace(cls+" top",boxData.box.top,f),
+    mediaFace(cls+" bottom",boxData.box.bottom,f)
   );
 }
 
@@ -99,11 +123,12 @@ function rotate(dx,dy){
 const scene=$("selectedScene");
 scene.addEventListener("pointerdown",e=>{
   if(!selectedBox||busy)return;
-  dragging=true;lastX=e.clientX;lastY=e.clientY;
+  dragging=true;didDrag=false;lastX=e.clientX;lastY=e.clientY;
   scene.setPointerCapture(e.pointerId);
 });
 scene.addEventListener("pointermove",e=>{
   if(!dragging||busy)return;
+  if(Math.abs(e.clientX-lastX)+Math.abs(e.clientY-lastY)>3) didDrag=true;
   rotate(e.clientX-lastX,e.clientY-lastY);
   lastX=e.clientX;lastY=e.clientY;
 });
@@ -113,7 +138,8 @@ scene.addEventListener("pointercancel",()=>dragging=false);
 $("selectedCube").addEventListener("click",e=>{
   /* A simple click while not dragging opens the gift.
      Dragging is used only for inspection. */
-  if(!dragging && selectedBox) openGift();
+  if(!dragging && !didDrag && selectedBox) openGift();
+  didDrag=false;
 });
 
 $("openSelected").addEventListener("click",openGift);
@@ -194,7 +220,10 @@ $("subtitle").textContent=CONFIG.page.subtitle;
 $("hint").textContent=CONFIG.page.hint;
 $("startTitle").textContent=CONFIG.page.startTitle;
 $("startMessage").textContent=CONFIG.page.startMessage;
-document.querySelector(".bg").style.backgroundImage=`url("${CONFIG.page.background}")`;
+const bgEl=document.querySelector(".bg");
+bgEl.style.backgroundImage=`url("${CONFIG.page.background}")`;
+const overlayOpacity=Number(CONFIG.page.backgroundOverlayOpacity ?? 0);
+document.querySelector(".overlay").style.background=`rgba(0,0,0,${Math.max(0,Math.min(1,overlayOpacity))})`;
 if(CONFIG.animation.backgroundZoom)document.querySelector(".bg").classList.add("zoom");
 
 addParticles();

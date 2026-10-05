@@ -1,18 +1,21 @@
 /*
 =========================================================
-3D GIFT BOX TEMPLATE V3
-แก้รูป/เพลง/ข้อความได้จากไฟล์นี้และ assets/
+3D GIFT BOX TEMPLATE V4
+รูป + วิดีโอในแต่ละด้านของกล่องได้
+แก้รูป/วิดีโอ/เพลง/ข้อความได้จากไฟล์นี้และ assets/
 =========================================================
 */
 
 const CONFIG = {
   page: {
-    title: "A Little Surprise",
-    subtitle: "เลือกกล่อง แล้วหมุนดูรอบ ๆ ก่อนเปิดของขวัญ",
-    hint: "คลิกกล่องเพื่อเลือก • ลากเพื่อหมุน • คลิกกล่องซ้ำเพื่อเปิด",
-    startTitle: "A Special Surprise",
-    startMessage: "พร้อมเปิดกล่องของขวัญหรือยัง?",
-    background: "assets/background/background.jpg"
+    title: "",
+    subtitle: "",
+    hint: "",
+    startTitle: "Are you readay?",
+    startMessage: "",
+    background: "assets/background/background.jpg",
+    // 0 = ไม่ทำให้พื้นหลังมืดลง, แนะนำ 0.03–0.10 ถ้าต้องการให้อ่านข้อความง่ายขึ้น
+    backgroundOverlayOpacity: 0
   },
 
   music: {
@@ -36,56 +39,44 @@ const CONFIG = {
   },
 
   /*
-  เพิ่มกล่องได้เรื่อย ๆ
-  ไม่ต้องใส่ชื่อกล่อง
-  id ใช้แยกกล่องภายในระบบเท่านั้น
+  แต่ละด้านรองรับ image หรือ video
+  ตัวอย่าง image:
+    front: { type: "image", src: "front.jpg" }
+
+  ตัวอย่าง video:
+    right: { type: "video", src: "right.mp4", loop: true, muted: true, autoplay: true }
+
+  เพื่อความง่าย ระบบยังรองรับรูปแบบเดิม เช่น front: "front.jpg"
   */
   boxes: [
     {
       id: "box01",
       folder: "assets/boxes/box01/",
       box: {
-        front: "front.jpg",
-        back: "back.jpg",
-        left: "left.jpg",
-        right: "right.jpg",
-        top: "top.jpg",
-        bottom: "bottom.jpg"
+        front: { type: "image", src: "front.jpg" },
+        back: { type: "image", src: "back.jpg" },
+        left: { type: "image", src: "left.jpg" },
+        right: { type: "video", src: "right.mp4",loop:true,muted:true,autoplay:true },
+        top: { type: "image", src: "top.jpg" },
+        bottom: { type: "image", src: "bottom.jpg" }
       },
       reward: {
         image: "assets/cards/card01.jpg",
-        title: "💕 My Special Gift",
-        message: "ของขวัญชิ้นนี้ตั้งใจเตรียมไว้ให้เธอโดยเฉพาะนะ"
+        title: "💕IPHONE18 PROMAX",
+        message: "For My Love"
       }
     },
 
     {
-      id: "box01",
-      folder: "assets/boxes/box01/",
+      id: "box02",
+      folder: "assets/boxes/box02/",
       box: {
-        front: "front.jpg",
-        back: "back.jpg",
-        left: "left.jpg",
-        right: "right.jpg",
-        top: "top.jpg",
-        bottom: "bottom.jpg"
-      },
-      reward: {
-        image: "assets/cards/card01.jpg",
-        title: "🎂 Happy Birthday!",
-        message: "ขอให้วันนี้เต็มไปด้วยรอยยิ้มและความสุข"
-      }
-    },
-    {
-      id: "box01",
-      folder: "assets/boxes/box01/",
-      box: {
-        front: "front.jpg",
-        back: "back.jpg",
-        left: "left.jpg",
-        right: "right.jpg",
-        top: "top.jpg",
-        bottom: "bottom.jpg"
+        front: { type: "image", src: "front.jpg" },
+        back: { type: "image", src: "back.jpg" },
+        left: { type: "image", src: "left.jpg" },
+        right: { type: "image", src: "right.jpg" },
+        top: { type: "image", src: "top.jpg" },
+        bottom: { type: "image", src: "bottom.jpg" }
       },
       reward: {
         image: "assets/cards/card01.jpg",
@@ -94,15 +85,32 @@ const CONFIG = {
       }
     },
     {
-      id: "box01",
-      folder: "assets/boxes/box01/",
+       id: "box02",
+      folder: "assets/boxes/box02/",
       box: {
-        front: "front.jpg",
-        back: "back.jpg",
-        left: "left.jpg",
-        right: "right.jpg",
-        top: "top.jpg",
-        bottom: "bottom.jpg"
+        front: { type: "image", src: "front.jpg" },
+        back: { type: "image", src: "back.jpg" },
+        left: { type: "image", src: "left.jpg" },
+        right: { type: "image", src: "right.jpg" },
+        top: { type: "image", src: "top.jpg" },
+        bottom: { type: "image", src: "bottom.jpg" }
+      },
+      reward: {
+        image: "assets/cards/card01.jpg",
+        title: "💕 My Special Gift",
+        message: "ของขวัญชิ้นนี้ตั้งใจเตรียมไว้ให้เธอโดยเฉพาะนะ"
+      }
+    },
+    {
+       id: "box02",
+      folder: "assets/boxes/box02/",
+      box: {
+        front: { type: "image", src: "front.jpg" },
+        back: { type: "image", src: "back.jpg" },
+        left: { type: "image", src: "left.jpg" },
+        right: { type: "image", src: "right.jpg" },
+        top: { type: "image", src: "top.jpg" },
+        bottom: { type: "image", src: "bottom.jpg" }
       },
       reward: {
         image: "assets/cards/card01.jpg",
