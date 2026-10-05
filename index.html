@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>3D Gift Box</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <div class="bg"></div><div class="overlay"></div><div id="particles"></div>
+
+  <header>
+    <h1 id="title"></h1>
+    <button id="sound" class="icon-btn" aria-label="เสียง">🔊</button>
+  </header>
+
+  <main>
+    <p id="subtitle"></p>
+    <section id="boxes" aria-label="Gift boxes"></section>
+    <p id="hint"></p>
+  </main>
+
+  <!-- Selected box: first click opens this viewer. -->
+  <div id="viewer" class="viewer hidden">
+    <button id="viewerClose" class="viewer-close">×</button>
+    <div class="viewer-top">
+      <span id="viewerHint"></span>
+    </div>
+    <div id="selectedScene" class="selected-scene">
+      <div id="selectedCube" class="selected-cube"></div>
+      <div class="floor-glow"></div>
+    </div>
+    <button id="openSelected" class="open-selected">OPEN GIFT</button>
+  </div>
+
+  <!-- Opening animation -->
+  <div id="opening" class="layer hidden">
+    <div class="flash"></div>
+    <div id="openingCube" class="opening-cube"></div>
+    <div class="opening-glow"></div>
+  </div>
+
+  <!-- Reward -->
+  <div id="rewardLayer" class="layer hidden">
+    <div class="reward">
+      <div class="sparkles"></div>
+      <div id="rewardImage"></div>
+      <h2 id="rewardTitle"></h2>
+      <p id="rewardMessage"></p>
+      <button id="closeReward">ปิด</button>
+    </div>
+  </div>
+
+  <div id="start" class="start">
+    <div class="start-card">
+      <div class="gift">🎁</div>
+      <h2 id="startTitle"></h2>
+      <p id="startMessage"></p>
+      <button id="startBtn">START</button>
+    </div>
+  </div>
+
+  <audio id="bgm"></audio>
+</div>
+<script src="config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
