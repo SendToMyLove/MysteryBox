@@ -60,8 +60,8 @@ const CONFIG = {
     },
 
     {
-      id: "box02",
-      folder: "assets/boxes/box02/",
+      id: "box01",
+      folder: "assets/boxes/box01/",
       box: {
         front: "front.jpg",
         back: "back.jpg",
@@ -71,7 +71,7 @@ const CONFIG = {
         bottom: "bottom.jpg"
       },
       reward: {
-        image: "assets/cards/card02.jpg",
+        image: "assets/cards/card01.jpg",
         title: "🎂 Happy Birthday!",
         message: "ขอให้วันนี้เต็มไปด้วยรอยยิ้มและความสุข"
       }
