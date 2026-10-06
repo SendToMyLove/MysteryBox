@@ -79,9 +79,9 @@ const CONFIG = {
         bottom: { type: "image", src: "bottom.jpg" }
       },
       reward: {
-        image: "assets/cards/card01.jpg",
+        image: "assets/cards/card02.jpg",
         title: "💕 My Special Gift",
-        message: "ของขวัญชิ้นนี้ตั้งใจเตรียมไว้ให้เธอโดยเฉพาะนะ"
+        message: "💙🌹 รักที่มีแค่เธอคนเดียว"
       }
     },
     {
